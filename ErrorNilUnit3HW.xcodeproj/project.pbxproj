@@ -280,6 +280,7 @@
 				DEVELOPMENT_TEAM = L23B96GPNM;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ErrorNilUnit3HW/App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewsAPI;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -310,6 +311,7 @@
 				DEVELOPMENT_TEAM = L23B96GPNM;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ErrorNilUnit3HW/App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewsAPI;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
