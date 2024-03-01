@@ -2,23 +2,31 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    enum Category: String {
-        case business
-        case entertainment
-        case health
-        case science
-        case sports
-        case technology
+    enum Category: String, CaseIterable {
+        case business = "Бизнес"
+        case entertainment = "Развлечения"
+        case health = "Здоровье"
+        case science = "Наука"
+        case sports = "Спорт"
+        case technology = "Технологии"
+        
+        func getCategory() -> String {
+            switch self {
+            case .business:
+                return "business"
+            case .entertainment:
+                return "entertainment"
+            case .health:
+                return "health"
+            case .science:
+                return "science"
+            case .sports:
+                return "sports"
+            case .technology:
+                return "technology"
+            }
+        }
     }
-    
-    private let categories = [
-        "Бизнес",
-        "Развлечения",
-        "Здоровье",
-        "Наука",
-        "Спорт",
-        "Технологии"
-    ]
     
     private let networkManager = NetworkManager()
     
@@ -44,27 +52,18 @@ extension ViewController: UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        categories.count
+        Category.allCases.count
     }
 }
 
 //MARK: - UIPickerViewDelegate
 extension ViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        categories[row]
+        Category.allCases[row].rawValue
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        var category = ""
-        
-        switch row {
-        case 0: category = Category.business.rawValue
-        case 1: category = Category.entertainment.rawValue
-        case 2: category = Category.health.rawValue
-        case 3: category = Category.science.rawValue
-        case 4: category = Category.sports.rawValue
-        default: category = Category.technology.rawValue
-        }
+        var category = Category.getCategory(Category.allCases[row])()
         
         networkManager.getNews(category: category)
     }
