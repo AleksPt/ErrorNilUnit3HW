@@ -11,6 +11,7 @@
 		FAD61B5C2B92081600E2AB20 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD61B5B2B92081600E2AB20 /* SceneDelegate.swift */; };
 		FAD61B5E2B92081600E2AB20 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD61B5D2B92081600E2AB20 /* ViewController.swift */; };
 		FAD61B632B92081700E2AB20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAD61B622B92081700E2AB20 /* Assets.xcassets */; };
+		FAD61B6F2B9209F300E2AB20 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD61B6E2B9209F300E2AB20 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		FAD61B5D2B92081600E2AB20 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FAD61B622B92081700E2AB20 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FAD61B672B92081700E2AB20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAD61B6E2B9209F300E2AB20 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				FAD61B5D2B92081600E2AB20 /* ViewController.swift */,
+				FAD61B6E2B9209F300E2AB20 /* NetworkManager.swift */,
 				FAD61B6D2B9208CA00E2AB20 /* App */,
 				FAD61B622B92081700E2AB20 /* Assets.xcassets */,
 			);
@@ -138,6 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAD61B6F2B9209F300E2AB20 /* NetworkManager.swift in Sources */,
 				FAD61B5E2B92081600E2AB20 /* ViewController.swift in Sources */,
 				FAD61B5A2B92081600E2AB20 /* AppDelegate.swift in Sources */,
 				FAD61B5C2B92081600E2AB20 /* SceneDelegate.swift in Sources */,
