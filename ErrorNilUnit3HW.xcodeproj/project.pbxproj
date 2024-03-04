@@ -13,6 +13,8 @@
 		FA83BF372B96589B00D40A1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA83BF362B96589B00D40A1A /* Assets.xcassets */; };
 		FA83BF422B96591900D40A1A /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA83BF412B96591900D40A1A /* NetworkManager.swift */; };
 		FA83BF452B965B6E00D40A1A /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA83BF442B965B6E00D40A1A /* Response.swift */; };
+		FA83BF472B965EF000D40A1A /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA83BF462B965EF000D40A1A /* NewsCell.swift */; };
+		FA83BF4A2B96670B00D40A1A /* Extension + UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA83BF492B96670B00D40A1A /* Extension + UIImageView.swift */; };
 		FAD61B5A2B92081600E2AB20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD61B592B92081600E2AB20 /* AppDelegate.swift */; };
 		FAD61B5C2B92081600E2AB20 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD61B5B2B92081600E2AB20 /* SceneDelegate.swift */; };
 		FAD61B5E2B92081600E2AB20 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD61B5D2B92081600E2AB20 /* ViewController.swift */; };
@@ -29,6 +31,8 @@
 		FA83BF3B2B96589B00D40A1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA83BF412B96591900D40A1A /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		FA83BF442B965B6E00D40A1A /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		FA83BF462B965EF000D40A1A /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
+		FA83BF492B96670B00D40A1A /* Extension + UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIImageView.swift"; sourceTree = "<group>"; };
 		FAD61B562B92081600E2AB20 /* ErrorNilUnit3HW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ErrorNilUnit3HW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAD61B592B92081600E2AB20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAD61B5B2B92081600E2AB20 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,7 +65,9 @@
 			children = (
 				FA83BF3F2B9658B400D40A1A /* App */,
 				FA83BF402B9658F700D40A1A /* Controller */,
+				FA83BF482B965EF800D40A1A /* View */,
 				FA83BF432B96591E00D40A1A /* Model */,
+				FA83BF4B2B966A4000D40A1A /* Extension */,
 				FA83BF362B96589B00D40A1A /* Assets.xcassets */,
 			);
 			path = Homework2;
@@ -92,6 +98,22 @@
 				FA83BF442B965B6E00D40A1A /* Response.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		FA83BF482B965EF800D40A1A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FA83BF462B965EF000D40A1A /* NewsCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FA83BF4B2B966A4000D40A1A /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FA83BF492B96670B00D40A1A /* Extension + UIImageView.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		FAD61B4D2B92081500E2AB20 = {
@@ -236,6 +258,8 @@
 				FA83BF2E2B96589A00D40A1A /* AppDelegate.swift in Sources */,
 				FA83BF302B96589A00D40A1A /* SceneDelegate.swift in Sources */,
 				FA83BF452B965B6E00D40A1A /* Response.swift in Sources */,
+				FA83BF4A2B96670B00D40A1A /* Extension + UIImageView.swift in Sources */,
+				FA83BF472B965EF000D40A1A /* NewsCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,7 +286,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = L23B96GPNM;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Homework2/Info.plist;
+				INFOPLIST_FILE = Homework2/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -289,7 +313,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = L23B96GPNM;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Homework2/Info.plist;
+				INFOPLIST_FILE = Homework2/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
