@@ -6,7 +6,7 @@ final class ViewController: UIViewController {
     private var news: [Articles]? = []
     
     private lazy var searchController: UISearchController = {
-        $0.searchResultsUpdater = self
+        $0.searchBar.delegate = self
         $0.searchBar.placeholder = "Поиск"
         return $0
     }(UISearchController(searchResultsController: nil))
@@ -53,10 +53,10 @@ extension ViewController: UITableViewDataSource {
     }
 }
 
-//MARK: - UISearchResultsUpdating
-extension ViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        if let searchText = searchController.searchBar.text {
+//MARK: - UISearchBarDelegate
+extension ViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if let searchText = searchBar.text {
             networkManager.getNews(keyword: searchText) { [weak self] data in
                 self?.news = data
                 
