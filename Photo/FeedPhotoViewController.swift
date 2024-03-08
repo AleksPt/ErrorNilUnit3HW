@@ -1,6 +1,6 @@
 import UIKit
 
-final class ViewController: UIViewController {
+final class FeedPhotoViewController: UIViewController {
     
     var photos: [Photo]? = []
     
@@ -49,7 +49,7 @@ final class ViewController: UIViewController {
 }
 
 // MARK: - UICollectionViewDataSource
-extension ViewController: UICollectionViewDataSource {
+extension FeedPhotoViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         photos?.count ?? 0
     }
@@ -72,7 +72,7 @@ extension ViewController: UICollectionViewDataSource {
 }
 
 // MARK: - Show alert with network error
-private extension ViewController {
+private extension FeedPhotoViewController {
     func showAlert() {
         let alert = UIAlertController(
             title: "Ooops!",

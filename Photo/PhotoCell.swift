@@ -34,11 +34,16 @@ final class PhotoCell: UICollectionViewCell {
             
             photo.sd_setImage(with: url, placeholderImage: .loading)
 
+            let hAnchor = photo.heightAnchor.constraint(equalToConstant: newHeightPicture)
+            hAnchor.priority = .defaultHigh
+            
             NSLayoutConstraint.activate([
                 photo.topAnchor.constraint(equalTo: topAnchor),
                 photo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+                photo.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+                photo.bottomAnchor.constraint(equalTo: bottomAnchor),
                 photo.widthAnchor.constraint(equalToConstant: viewWidth),
-                photo.heightAnchor.constraint(equalToConstant: newHeightPicture)
+                hAnchor
             ])
         }
     }
