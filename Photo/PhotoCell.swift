@@ -13,25 +13,23 @@ final class PhotoCell: UICollectionViewCell {
         return $0
     }(UIImageView())
     
-    lazy var likeButton: UIButton = {
-        $0.setImage(.likeButtonOff, for: .normal)
-        $0.frame = CGRect(
-            x: bounds.minX + 30,
-            y: bounds.minY + 10,
-            width: 50,
-            height: 50
-        )
+    lazy var saveButton: UIButton = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.setTitle("Сохранить", for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 14)
+        $0.backgroundColor = .systemPink
+        $0.layer.cornerRadius = 15
         return $0
-    }(UIButton(type: .custom, primaryAction: likeAction))
+    }(UIButton(type: .custom, primaryAction: saveAction))
     
-    lazy var likeAction = UIAction { [weak self] _ in
-        self?.likeButton.setImage(.likeButtonOn, for: .normal)
+    lazy var saveAction = UIAction { [weak self] _ in
+        self?.saveButton.setImage(.likeButtonOn, for: .normal)
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(photo)
-        addSubview(likeButton)
+        addSubview(saveButton)
     }
     
     override func prepareForReuse() {
@@ -60,7 +58,14 @@ final class PhotoCell: UICollectionViewCell {
                 photo.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
                 photo.bottomAnchor.constraint(equalTo: bottomAnchor),
                 photo.widthAnchor.constraint(equalToConstant: viewWidth),
-                hAnchor
+                hAnchor,
+                
+                saveButton.bottomAnchor.constraint(equalTo: photo.bottomAnchor, constant: -10),
+//                saveButton.leadingAnchor.constraint(equalTo: photo.leadingAnchor, constant: 10),
+//                saveButton.trailingAnchor.constraint(equalTo: photo.trailingAnchor, constant: -10),
+                saveButton.heightAnchor.constraint(equalToConstant: 30),
+                saveButton.widthAnchor.constraint(equalToConstant: 100),
+                saveButton.centerXAnchor.constraint(equalTo: photo.centerXAnchor)
             ])
         }
     }
