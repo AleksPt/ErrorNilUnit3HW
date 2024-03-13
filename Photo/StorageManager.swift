@@ -3,8 +3,8 @@ import Foundation
 class StorageManager{
 
     static let shared = StorageManager()
-    
-    private var defaultPath = "photo"
+        
+    var defaultDirectory = UserDefaults.standard.string(forKey: "folder")
     
     func load(url: URL) {
         DispatchQueue.global().async { [weak self] in
@@ -22,7 +22,7 @@ class StorageManager{
     
     func saveImage(data: Data){
        var path = getPath()
-        path.append(path: defaultPath)
+        path.append(path: defaultDirectory ?? "photo")
         
         try? FileManager.default.createDirectory(at: path, withIntermediateDirectories: true)
         
@@ -37,7 +37,7 @@ class StorageManager{
     
     func getImage(imgName: String) -> Data?{
         var path = getPath()
-        path.append(path: defaultPath)
+        path.append(path: defaultDirectory ?? "photo")
         path.append(path: imgName)
         
         return try? Data(contentsOf: path)
@@ -45,19 +45,19 @@ class StorageManager{
     
     func deleteFolder() {
         var path = getPath()
-        path.append(path: defaultPath)
+        path.append(path: defaultDirectory ?? "photo")
         try? FileManager.default.removeItem(at: path)
     }
     
     func moveFile(path: String) -> Bool {
         do {
             var oldPath = getPath()
-            oldPath.append(path: defaultPath)
+            oldPath.append(path: defaultDirectory ?? "photo")
             var newPath = getPath()
             newPath.append(path: path)
             try FileManager.default.moveItem(at: oldPath, to: newPath)
             deleteFolder()
-            defaultPath = path
+            UserDefaults.standard.setValue(path, forKey: "folder")
             return true
         } catch {
             return false
