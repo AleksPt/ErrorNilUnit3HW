@@ -19,6 +19,7 @@ final class FavoritesPhotoViewController: UIViewController {
     
     lazy var deleteImageAction = UIAction { [weak self] _ in
         StorageManager.shared.deleteFolder()
+        
         self?.favoriteImageView.image = nil
         self?.deleteImageButton.isHidden = true
         self?.renameDirectoryButton.isHidden = true
@@ -94,8 +95,11 @@ extension FavoritesPhotoViewController {
                 }
             }
         
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
         renameAlert.addTextField()
         renameAlert.addAction(okAction)
+        renameAlert.addAction(cancelAction)
         present(renameAlert, animated: true)
     }
 }

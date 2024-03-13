@@ -19,6 +19,7 @@
 		FA6CC56F2BA19829003D989D /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6CC56E2BA19829003D989D /* TabBarViewController.swift */; };
 		FA6CC5712BA19AEE003D989D /* FavoritesPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6CC5702BA19AEE003D989D /* FavoritesPhotoViewController.swift */; };
 		FA6CC5752BA1B95E003D989D /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6CC5742BA1B95E003D989D /* StorageManager.swift */; };
+		FA6CC5782BA1F6A4003D989D /* SpringAnimation in Frameworks */ = {isa = PBXBuildFile; productRef = FA6CC5772BA1F6A4003D989D /* SpringAnimation */; };
 		FA83BF2E2B96589A00D40A1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA83BF2D2B96589A00D40A1A /* AppDelegate.swift */; };
 		FA83BF302B96589A00D40A1A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA83BF2F2B96589A00D40A1A /* SceneDelegate.swift */; };
 		FA83BF322B96589A00D40A1A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA83BF312B96589A00D40A1A /* ViewController.swift */; };
@@ -71,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA6CC5782BA1F6A4003D989D /* SpringAnimation in Frameworks */,
 				FA6CC53B2B9A4A86003D989D /* SDWebImage in Frameworks */,
 				FA6CC5392B9A4A81003D989D /* Alamofire in Frameworks */,
 			);
@@ -98,13 +100,10 @@
 			children = (
 				FA6CC5232B9A47FE003D989D /* AppDelegate.swift */,
 				FA6CC5252B9A47FE003D989D /* SceneDelegate.swift */,
-				FA6CC56E2BA19829003D989D /* TabBarViewController.swift */,
-				FA6CC5272B9A47FE003D989D /* FeedPhotoViewController.swift */,
-				FA6CC5402B9A5853003D989D /* PhotoCell.swift */,
-				FA6CC5702BA19AEE003D989D /* FavoritesPhotoViewController.swift */,
-				FA6CC53E2B9A53A6003D989D /* Response.swift */,
-				FA6CC53C2B9A4B70003D989D /* NetworkManager.swift */,
-				FA6CC5742BA1B95E003D989D /* StorageManager.swift */,
+				FA6CC57B2BA1FCF8003D989D /* ViewControllers */,
+				FA6CC57C2BA1FD06003D989D /* Cell */,
+				FA6CC5792BA1FCE3003D989D /* Model */,
+				FA6CC57A2BA1FCEF003D989D /* Services */,
 				FA6CC52C2B9A4802003D989D /* Assets.xcassets */,
 				FA6CC5312B9A4802003D989D /* Info.plist */,
 			);
@@ -116,6 +115,41 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FA6CC5792BA1FCE3003D989D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FA6CC53E2B9A53A6003D989D /* Response.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FA6CC57A2BA1FCEF003D989D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				FA6CC53C2B9A4B70003D989D /* NetworkManager.swift */,
+				FA6CC5742BA1B95E003D989D /* StorageManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		FA6CC57B2BA1FCF8003D989D /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				FA6CC56E2BA19829003D989D /* TabBarViewController.swift */,
+				FA6CC5272B9A47FE003D989D /* FeedPhotoViewController.swift */,
+				FA6CC5702BA19AEE003D989D /* FavoritesPhotoViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		FA6CC57C2BA1FD06003D989D /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				FA6CC5402B9A5853003D989D /* PhotoCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		FA83BF2C2B96589A00D40A1A /* Homework2 */ = {
@@ -235,6 +269,7 @@
 			packageProductDependencies = (
 				FA6CC5382B9A4A81003D989D /* Alamofire */,
 				FA6CC53A2B9A4A86003D989D /* SDWebImage */,
+				FA6CC5772BA1F6A4003D989D /* SpringAnimation */,
 			);
 			productName = Photo;
 			productReference = FA6CC5212B9A47FE003D989D /* Photo.app */;
@@ -307,6 +342,7 @@
 			packageReferences = (
 				FA6CC5352B9A4A29003D989D /* XCRemoteSwiftPackageReference "Alamofire" */,
 				FA6CC5362B9A4A6B003D989D /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				FA6CC5762BA1F658003D989D /* XCRemoteSwiftPackageReference "SpringAnimation" */,
 			);
 			productRefGroup = FAD61B572B92081600E2AB20 /* Products */;
 			projectDirPath = "";
@@ -744,6 +780,14 @@
 				minimumVersion = 5.19.0;
 			};
 		};
+		FA6CC5762BA1F658003D989D /* XCRemoteSwiftPackageReference "SpringAnimation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/LexDeBash/SpringAnimation";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 0.3.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -756,6 +800,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FA6CC5362B9A4A6B003D989D /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
+		};
+		FA6CC5772BA1F6A4003D989D /* SpringAnimation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA6CC5762BA1F658003D989D /* XCRemoteSwiftPackageReference "SpringAnimation" */;
+			productName = SpringAnimation;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -1,5 +1,6 @@
 import UIKit
 import SDWebImage
+import SpringAnimation
 
 final class PhotoCell: UICollectionViewCell {
     
@@ -15,18 +16,22 @@ final class PhotoCell: UICollectionViewCell {
         return $0
     }(UIImageView())
     
-    lazy var saveButton: UIButton = {
+    lazy var saveButton: SpringButton = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setTitle("Сохранить", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 14)
         $0.backgroundColor = .systemPink
         $0.layer.cornerRadius = 15
         return $0
-    }(UIButton(type: .custom, primaryAction: saveAction))
+    }(SpringButton(type: .custom, primaryAction: saveAction))
     
     lazy var saveAction = UIAction { [weak self] _ in
         guard let url = self?.urlImage else { return }
         StorageManager.shared.load(url: url)
+        
+        self?.saveButton.animation = "pop"
+        self?.saveButton.duration = 0.5
+        self?.saveButton.animate()
     }
     
     override init(frame: CGRect) {
