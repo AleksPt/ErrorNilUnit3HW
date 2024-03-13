@@ -18,10 +18,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let scene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: scene)
-        window.rootViewController = UINavigationController(rootViewController: FeedPhotoViewController())
+        window.rootViewController = TabBarViewController()
         window.makeKeyAndVisible()
         self.window = window
-        UIView.appearance().backgroundColor = .dark
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
