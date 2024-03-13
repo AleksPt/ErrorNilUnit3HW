@@ -18,6 +18,7 @@ final class TabBarViewController: UITabBarController {
         )
         
         self.viewControllers = [feedPhotoVC, favoritesPhotoVC]
+        tabBar.backgroundColor = .white
     }
     
     private func configure(

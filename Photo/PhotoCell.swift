@@ -3,6 +3,8 @@ import SDWebImage
 
 final class PhotoCell: UICollectionViewCell {
     
+    private var urlImage: URL?
+    
     static let reuseId = "PhotoCell"
     
     lazy var photo: UIImageView = {
@@ -23,7 +25,8 @@ final class PhotoCell: UICollectionViewCell {
     }(UIButton(type: .custom, primaryAction: saveAction))
     
     lazy var saveAction = UIAction { [weak self] _ in
-        self?.saveButton.setImage(.likeButtonOn, for: .normal)
+        guard let url = self?.urlImage else { return }
+        StorageManager.shared.load(url: url)
     }
     
     override init(frame: CGRect) {
@@ -34,6 +37,7 @@ final class PhotoCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         self.photo.image = nil
+        self.urlImage = nil
     }
     
     required init?(coder: NSCoder) {
@@ -48,7 +52,8 @@ final class PhotoCell: UICollectionViewCell {
             let newHeightPicture = viewWidth * photoRatio
             
             photo.sd_setImage(with: url, placeholderImage: .loading)
-
+            urlImage = url
+            
             let hAnchor = photo.heightAnchor.constraint(equalToConstant: newHeightPicture)
             hAnchor.priority = .defaultHigh
             
@@ -61,8 +66,6 @@ final class PhotoCell: UICollectionViewCell {
                 hAnchor,
                 
                 saveButton.bottomAnchor.constraint(equalTo: photo.bottomAnchor, constant: -10),
-//                saveButton.leadingAnchor.constraint(equalTo: photo.leadingAnchor, constant: 10),
-//                saveButton.trailingAnchor.constraint(equalTo: photo.trailingAnchor, constant: -10),
                 saveButton.heightAnchor.constraint(equalToConstant: 30),
                 saveButton.widthAnchor.constraint(equalToConstant: 100),
                 saveButton.centerXAnchor.constraint(equalTo: photo.centerXAnchor)
