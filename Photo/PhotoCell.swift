@@ -2,6 +2,7 @@ import UIKit
 import SDWebImage
 
 final class PhotoCell: UICollectionViewCell {
+    
     static let reuseId = "PhotoCell"
     
     lazy var photo: UIImageView = {
@@ -12,9 +13,25 @@ final class PhotoCell: UICollectionViewCell {
         return $0
     }(UIImageView())
     
+    lazy var likeButton: UIButton = {
+        $0.setImage(.likeButtonOff, for: .normal)
+        $0.frame = CGRect(
+            x: bounds.minX + 30,
+            y: bounds.minY + 10,
+            width: 50,
+            height: 50
+        )
+        return $0
+    }(UIButton(type: .custom, primaryAction: likeAction))
+    
+    lazy var likeAction = UIAction { [weak self] _ in
+        self?.likeButton.setImage(.likeButtonOn, for: .normal)
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(photo)
+        addSubview(likeButton)
     }
     
     override func prepareForReuse() {
