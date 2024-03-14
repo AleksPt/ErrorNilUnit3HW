@@ -2,6 +2,50 @@ import UIKit
 
 final class FavoritesPhotoViewController: UIViewController {
     
+    private let databaseManager = DataBaseManager()
+    private var photoModel = [PhotoModel()]
+    
+    lazy var collectionView: UICollectionView = {
+        let layout = $0.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 10
+        layout.minimumInteritemSpacing = 10
+        
+        $0.dataSource = self
+        $0.register(FavoriteCell.self, forCellWithReuseIdentifier: FavoriteCell.reuseId)
+        $0.backgroundColor = .dark
+        return $0
+    }(UICollectionView(frame: view.frame, collectionViewLayout: UICollectionViewFlowLayout()))
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addSubview(collectionView)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        photoModel = databaseManager.getPhotos()
+        collectionView.reloadData()
+    }
+}
+
+extension FavoritesPhotoViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        photoModel.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteCell.reuseId, for: indexPath) as! FavoriteCell
+        
+        cell.configCell(photoId: photoModel[indexPath.item].photoUrl)
+        return cell
+    }
+}
+
+/*
+final class FavoritesPhotoViewController: UIViewController {
+    
     lazy var favoriteImageView: UIImageView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.contentMode = .scaleAspectFill
@@ -103,3 +147,4 @@ extension FavoritesPhotoViewController {
         present(renameAlert, animated: true)
     }
 }
+*/

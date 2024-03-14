@@ -2,11 +2,11 @@ import UIKit
 import SDWebImage
 import SpringAnimation
 
-final class PhotoCell: UICollectionViewCell {
+final class FeedCell: UICollectionViewCell {
     
+    private let databaseManager = DataBaseManager()
     private var urlImage: URL?
-    
-    static let reuseId = "PhotoCell"
+    static let reuseId = "FeedCell"
     
     lazy var photo: UIImageView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -27,7 +27,15 @@ final class PhotoCell: UICollectionViewCell {
     
     lazy var saveAction = UIAction { [weak self] _ in
         guard let url = self?.urlImage else { return }
-        StorageManager.shared.load(url: url)
+        
+        let id = UUID().uuidString
+        var photoModel: PhotoModel = {
+            $0.photoUrl = id
+            return $0
+        }(PhotoModel())
+        
+        self?.databaseManager.savePhoto(photoModel)
+        StorageManager.shared.load(url: url, namePhoto: id)
         
         self?.saveButton.animation = "pop"
         self?.saveButton.duration = 0.5
