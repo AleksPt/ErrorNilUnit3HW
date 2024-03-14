@@ -20,6 +20,8 @@
 		FA6CC5712BA19AEE003D989D /* FavoritesPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6CC5702BA19AEE003D989D /* FavoritesPhotoViewController.swift */; };
 		FA6CC5752BA1B95E003D989D /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6CC5742BA1B95E003D989D /* StorageManager.swift */; };
 		FA6CC5782BA1F6A4003D989D /* SpringAnimation in Frameworks */ = {isa = PBXBuildFile; productRef = FA6CC5772BA1F6A4003D989D /* SpringAnimation */; };
+		FA6CC5AB2BA37E74003D989D /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FA6CC5AA2BA37E74003D989D /* RealmSwift */; };
+		FA6CC5AD2BA37E7A003D989D /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = FA6CC5AC2BA37E7A003D989D /* Realm */; };
 		FA83BF2E2B96589A00D40A1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA83BF2D2B96589A00D40A1A /* AppDelegate.swift */; };
 		FA83BF302B96589A00D40A1A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA83BF2F2B96589A00D40A1A /* SceneDelegate.swift */; };
 		FA83BF322B96589A00D40A1A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA83BF312B96589A00D40A1A /* ViewController.swift */; };
@@ -72,9 +74,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA6CC5AB2BA37E74003D989D /* RealmSwift in Frameworks */,
 				FA6CC5782BA1F6A4003D989D /* SpringAnimation in Frameworks */,
 				FA6CC53B2B9A4A86003D989D /* SDWebImage in Frameworks */,
 				FA6CC5392B9A4A81003D989D /* Alamofire in Frameworks */,
+				FA6CC5AD2BA37E7A003D989D /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +274,8 @@
 				FA6CC5382B9A4A81003D989D /* Alamofire */,
 				FA6CC53A2B9A4A86003D989D /* SDWebImage */,
 				FA6CC5772BA1F6A4003D989D /* SpringAnimation */,
+				FA6CC5AA2BA37E74003D989D /* RealmSwift */,
+				FA6CC5AC2BA37E7A003D989D /* Realm */,
 			);
 			productName = Photo;
 			productReference = FA6CC5212B9A47FE003D989D /* Photo.app */;
@@ -343,6 +349,7 @@
 				FA6CC5352B9A4A29003D989D /* XCRemoteSwiftPackageReference "Alamofire" */,
 				FA6CC5362B9A4A6B003D989D /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				FA6CC5762BA1F658003D989D /* XCRemoteSwiftPackageReference "SpringAnimation" */,
+				FA6CC5A92BA37E6C003D989D /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = FAD61B572B92081600E2AB20 /* Products */;
 			projectDirPath = "";
@@ -788,6 +795,14 @@
 				minimumVersion = 0.3.0;
 			};
 		};
+		FA6CC5A92BA37E6C003D989D /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -805,6 +820,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FA6CC5762BA1F658003D989D /* XCRemoteSwiftPackageReference "SpringAnimation" */;
 			productName = SpringAnimation;
+		};
+		FA6CC5AA2BA37E74003D989D /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA6CC5A92BA37E6C003D989D /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		FA6CC5AC2BA37E7A003D989D /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA6CC5A92BA37E6C003D989D /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
