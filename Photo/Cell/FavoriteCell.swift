@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SpringAnimation
 
 class FavoriteCell: UICollectionViewCell {
     
@@ -31,11 +32,11 @@ class FavoriteCell: UICollectionViewCell {
         return $0
     }(UIImageView())
     
-    lazy var sharedButton: UIButton = {
+    lazy var sharedButton: SpringButton = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setTitle("Shared", for: .normal)
         return $0
-    }(UIButton(type: .system, primaryAction: sharedAction))
+    }(SpringButton(type: .system, primaryAction: sharedAction))
     
     lazy var sharedAction = UIAction { [weak self] _ in
         let share = UIActivityViewController(
@@ -43,28 +44,40 @@ class FavoriteCell: UICollectionViewCell {
             applicationActivities: nil
         )
         self?.completionShared?(share)
+        
+        self?.sharedButton.animation = "swing"
+        self?.sharedButton.duration = 0.5
+        self?.sharedButton.animate()
     }
     
-    lazy var deletePhotoButton: UIButton = {
+    lazy var deletePhotoButton: SpringButton = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setImage(UIImage(systemName: "trash"), for: .normal)
         $0.tintColor = .systemRed
         return $0
-    }(UIButton(type: .custom, primaryAction: deletePhotoAction))
+    }(SpringButton(type: .custom, primaryAction: deletePhotoAction))
     
     lazy var deletePhotoAction = UIAction { [weak self] _ in
         self?.completionDelete?()
+        
+        self?.deletePhotoButton.animation = "swing"
+        self?.deletePhotoButton.duration = 0.5
+        self?.deletePhotoButton.animate()
     }
     
-    lazy var renamePhotoButton: UIButton = {
+    lazy var renamePhotoButton: SpringButton = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setImage(UIImage(systemName: "character.cursor.ibeam"), for: .normal)
         $0.tintColor = .systemBlue
         return $0
-    }(UIButton(type: .custom, primaryAction: renamePhotoAction))
+    }(SpringButton(type: .custom, primaryAction: renamePhotoAction))
     
     lazy var renamePhotoAction = UIAction { [weak self] _ in
         self?.completionUpdate?()
+        
+        self?.renamePhotoButton.animation = "swing"
+        self?.renamePhotoButton.duration = 0.5
+        self?.renamePhotoButton.animate()
     }
     
     override init(frame: CGRect) {
