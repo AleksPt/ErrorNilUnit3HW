@@ -18,9 +18,34 @@ final class FavoritesPhotoViewController: UIViewController {
         return $0
     }(UICollectionView(frame: view.frame, collectionViewLayout: UICollectionViewFlowLayout()))
     
+    lazy var renameDirectoryButton: UIButton = {
+        $0.setTitle("Rename directory", for: .normal)
+//        $0.setImage(UIImage(systemName: "highlighter"), for: .normal)
+        $0.tintColor = .systemBlue
+        return $0
+    }(UIButton(type: .system, primaryAction: renameDirectoryAction))
+    
+    lazy var renameDirectoryAction = UIAction { [weak self] _ in
+        self?.showAlertRenameDirectory()
+    }
+    
+    lazy var deleteImageButton: UIButton = {
+        $0.setTitle("Delete all", for: .normal)
+        $0.tintColor = .systemRed
+//        $0.setImage(UIImage(systemName: "trash"), for: .normal)
+        $0.tintColor = .red
+        return $0
+    }(UIButton(type: .system, primaryAction: deleteImageAction))
+    
+    lazy var deleteImageAction = UIAction { [weak self] _ in
+        self?.showAlertDeleteAllPhoto()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(collectionView)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: deleteImageButton)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: renameDirectoryButton)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,6 +55,7 @@ final class FavoritesPhotoViewController: UIViewController {
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension FavoritesPhotoViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         photoModel.count
@@ -40,6 +66,58 @@ extension FavoritesPhotoViewController: UICollectionViewDataSource {
         
         cell.configCell(photoId: photoModel[indexPath.item].photoUrl)
         return cell
+    }
+}
+
+// MARK: - Alerts
+extension FavoritesPhotoViewController {
+    func showAlertRenameDirectory() {
+        let renameAlert = UIAlertController(
+            title: nil,
+            message: "Enter name for new folder:",
+            preferredStyle: .alert
+        )
+        
+        let okAction = UIAlertAction(
+            title: "Ok",
+            style: .default) { action in
+                if let text = renameAlert.textFields?.first?.text {
+                    StorageManager.shared.moveFile(path: text)
+                }
+            }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        renameAlert.addTextField()
+        renameAlert.addAction(okAction)
+        renameAlert.addAction(cancelAction)
+        present(renameAlert, animated: true)
+    }
+    
+    func showAlertDeleteAllPhoto() {
+        let alert = UIAlertController(
+            title: "Are you sure you want to delete all the photos? ",
+            message: "This action cannot be undone!",
+            preferredStyle: .actionSheet
+        )
+        
+        let okAction = UIAlertAction(
+            title: "Yeah, I'm sure",
+            style: .destructive) { [weak self] _ in
+                StorageManager.shared.deleteFolder()
+                self?.databaseManager.deleteAllPhoto()
+                self?.photoModel = []
+                self?.collectionView.reloadData()
+            }
+        
+        let cancelAction = UIAlertAction(
+            title: "Cancel",
+            style: .cancel
+        )
+        
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
     }
 }
 
@@ -123,28 +201,5 @@ final class FavoritesPhotoViewController: UIViewController {
     }
 }
 
-extension FavoritesPhotoViewController {
-    func showAlert() {
-        let renameAlert = UIAlertController(
-            title: nil,
-            message: "Enter name for new folder:",
-            preferredStyle: .alert
-        )
-        
-        let okAction = UIAlertAction(
-            title: "Ok",
-            style: .default) { action in
-                if let text = renameAlert.textFields?.first?.text {
-                    StorageManager.shared.moveFile(path: text)
-                }
-            }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        
-        renameAlert.addTextField()
-        renameAlert.addAction(okAction)
-        renameAlert.addAction(cancelAction)
-        present(renameAlert, animated: true)
-    }
-}
+
 */

@@ -19,6 +19,12 @@ class DataBaseManager {
     
     func getPhotos() -> [PhotoModel] {
         let allPhoto = realm.objects(PhotoModel.self)
-        return Array(allPhoto)
+        return Array(allPhoto).reversed()
+    }
+    
+    func deleteAllPhoto() {
+        try! realm.write({
+            realm.deleteAll()
+        })
     }
 }

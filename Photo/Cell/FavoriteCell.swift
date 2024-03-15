@@ -39,23 +39,18 @@ class FavoriteCell: UICollectionViewCell {
             let photoRatio = (CGFloat((UIImage(data: imageData)?.size.height)!)) / (CGFloat((UIImage(data: imageData)?.size.width)!))
             let viewWidth = UIScreen.main.bounds.width - 40
             let newHeightPicture = viewWidth * photoRatio
-            
             let hAnchor = favoriteImageView.heightAnchor.constraint(equalToConstant: newHeightPicture)
             hAnchor.priority = .defaultHigh
-            
+
             NSLayoutConstraint.activate([
                 favoriteImageView.topAnchor.constraint(equalTo: topAnchor),
                 favoriteImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
                 favoriteImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
                 favoriteImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
-//                favoriteImageView.widthAnchor.constraint(equalToConstant: viewWidth),
-//                hAnchor,
-                favoriteImageView.widthAnchor.constraint(equalToConstant: 300),
-                favoriteImageView.heightAnchor.constraint(equalToConstant: 300)
+                favoriteImageView.widthAnchor.constraint(equalToConstant: viewWidth),
+                hAnchor,
             ])
         }
-        
-        
     }
 }
 
