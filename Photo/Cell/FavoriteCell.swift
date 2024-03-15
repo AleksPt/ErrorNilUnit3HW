@@ -116,7 +116,7 @@ class FavoriteCell: UICollectionViewCell {
                 hAnchor,
                 
                 deletePhotoButton.trailingAnchor.constraint(equalTo: favoriteImageView.trailingAnchor, constant: -10),
-                deletePhotoButton.bottomAnchor.constraint(equalTo: bottomAnchor),
+                deletePhotoButton.centerYAnchor.constraint(equalTo: renamePhotoButton.centerYAnchor),
                 deletePhotoButton.widthAnchor.constraint(equalToConstant: 30),
                 deletePhotoButton.heightAnchor.constraint(equalToConstant: 30),
                 
