@@ -58,18 +58,28 @@ class StorageManager{
         try? FileManager.default.removeItem(at: path)
     }
     
-    func moveFile(path: String) -> Bool {
-        do {
-            var oldPath = getPath()
-            oldPath.append(path: defaultDirectory ?? "photo")
-            var newPath = getPath()
-            newPath.append(path: path)
-            try FileManager.default.moveItem(at: oldPath, to: newPath)
-            deleteFolder()
-            UserDefaults.standard.setValue(path, forKey: "folder")
-            return true
-        } catch {
-            return false
-        }
+//    func moveFile(path: String) -> Bool {
+//        do {
+//            var oldPath = getPath()
+//            oldPath.append(path: defaultDirectory ?? "photo")
+//            var newPath = getPath()
+//            newPath.append(path: path)
+//            try FileManager.default.moveItem(at: oldPath, to: newPath)
+//            deleteFolder()
+//            UserDefaults.standard.setValue(path, forKey: "folder")
+//            return true
+//        } catch {
+//            return false
+//        }
+//    }
+    
+    func moveFile(path: String) {
+        var oldPath = getPath()
+        oldPath.append(path: defaultDirectory ?? "photo")
+        var newPath = getPath()
+        newPath.append(path: path)
+        try? FileManager.default.moveItem(at: oldPath, to: newPath)
+        deleteFolder()
+        UserDefaults.standard.setValue(path, forKey: "folder")
     }
 }

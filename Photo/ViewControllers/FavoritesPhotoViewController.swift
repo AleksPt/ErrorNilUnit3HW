@@ -94,7 +94,7 @@ extension FavoritesPhotoViewController {
         
         let okAction = UIAlertAction(
             title: "Ok",
-            style: .default) { action in
+            style: .default) { _ in
                 if let text = renameAlert.textFields?.first?.text {
                     StorageManager.shared.moveFile(path: text)
                 }
