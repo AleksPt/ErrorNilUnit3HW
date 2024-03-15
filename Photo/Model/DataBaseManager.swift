@@ -22,9 +22,25 @@ class DataBaseManager {
         return Array(allPhoto).reversed()
     }
     
+    func updatePhoto(id: String, header: String) {
+        if let photo = realm.object(ofType: PhotoModel.self, forPrimaryKey: id) {
+            try! realm.write {
+                photo.header = header
+            }
+        }
+    }
+    
     func deleteAllPhoto() {
         try! realm.write({
             realm.deleteAll()
         })
+    }
+    
+    func deletePhoto(id: String) {
+        if let photo = realm.object(ofType: PhotoModel.self, forPrimaryKey: id) {
+            try! realm.write {
+                realm.delete(photo)
+            }
+        }
     }
 }

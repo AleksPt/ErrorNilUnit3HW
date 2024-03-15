@@ -11,16 +11,15 @@ final class FavoritesPhotoViewController: UIViewController {
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 10
-        
+
         $0.dataSource = self
         $0.register(FavoriteCell.self, forCellWithReuseIdentifier: FavoriteCell.reuseId)
-        $0.backgroundColor = .dark
+        $0.backgroundColor = .white
         return $0
     }(UICollectionView(frame: view.frame, collectionViewLayout: UICollectionViewFlowLayout()))
     
     lazy var renameDirectoryButton: UIButton = {
         $0.setTitle("Rename directory", for: .normal)
-//        $0.setImage(UIImage(systemName: "highlighter"), for: .normal)
         $0.tintColor = .systemBlue
         return $0
     }(UIButton(type: .system, primaryAction: renameDirectoryAction))
@@ -29,22 +28,21 @@ final class FavoritesPhotoViewController: UIViewController {
         self?.showAlertRenameDirectory()
     }
     
-    lazy var deleteImageButton: UIButton = {
+    lazy var deleteAllPhotoButton: UIButton = {
         $0.setTitle("Delete all", for: .normal)
         $0.tintColor = .systemRed
-//        $0.setImage(UIImage(systemName: "trash"), for: .normal)
         $0.tintColor = .red
         return $0
-    }(UIButton(type: .system, primaryAction: deleteImageAction))
+    }(UIButton(type: .system, primaryAction: deleteAllPhotoAction))
     
-    lazy var deleteImageAction = UIAction { [weak self] _ in
+    lazy var deleteAllPhotoAction = UIAction { [weak self] _ in
         self?.showAlertDeleteAllPhoto()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(collectionView)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: deleteImageButton)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: deleteAllPhotoButton)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: renameDirectoryButton)
     }
     
@@ -64,13 +62,25 @@ extension FavoritesPhotoViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteCell.reuseId, for: indexPath) as! FavoriteCell
         
-        cell.configCell(photoId: photoModel[indexPath.item].photoUrl)
+        let photourl = photoModel[indexPath.item].photoUrl
+        let photoid = photoModel[indexPath.item].id
+        
+        cell.configCell(photoId: photourl)
+        cell.completionDelete = { [weak self] in
+            self?.showAlertDeleteOnePhoto(idPhoto: photoid, photoUrl: photourl)
+            self?.photoModel.remove(at: indexPath.row)
+        }
+        cell.completionUpdate = { [weak self] in
+            self?.showAlertUpdatePhoto(id: photoid)
+        }
+        
         return cell
     }
 }
 
 // MARK: - Alerts
 extension FavoritesPhotoViewController {
+    
     func showAlertRenameDirectory() {
         let renameAlert = UIAlertController(
             title: nil,
@@ -95,12 +105,13 @@ extension FavoritesPhotoViewController {
     }
     
     func showAlertDeleteAllPhoto() {
+
         let alert = UIAlertController(
-            title: "Are you sure you want to delete all the photos? ",
+            title: "Are you sure you want to delete all the photos?",
             message: "This action cannot be undone!",
             preferredStyle: .actionSheet
         )
-        
+
         let okAction = UIAlertAction(
             title: "Yeah, I'm sure",
             style: .destructive) { [weak self] _ in
@@ -119,87 +130,53 @@ extension FavoritesPhotoViewController {
         alert.addAction(cancelAction)
         present(alert, animated: true)
     }
-}
+    
+    func showAlertDeleteOnePhoto(idPhoto: String, photoUrl: String) {
 
-/*
-final class FavoritesPhotoViewController: UIViewController {
-    
-    lazy var favoriteImageView: UIImageView = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.contentMode = .scaleAspectFill
-        $0.clipsToBounds = true
-        $0.layer.cornerRadius = 15
-        return $0
-    }(UIImageView())
-    
-    lazy var deleteImageButton: UIButton = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.setImage(UIImage(systemName: "trash"), for: .normal)
-        $0.tintColor = .red
-        return $0
-    }(UIButton(type: .custom, primaryAction: deleteImageAction))
-    
-    lazy var deleteImageAction = UIAction { [weak self] _ in
-        StorageManager.shared.deleteFolder()
+        let alert = UIAlertController(
+            title: "Are you sure you want to delete this photo?",
+            message: "This action cannot be undone!",
+            preferredStyle: .actionSheet
+        )
+
+        let okAction = UIAlertAction(
+            title: "Yeah, I'm sure",
+            style: .destructive) { [weak self] _ in
+                self?.databaseManager.deletePhoto(id: idPhoto)
+                self?.collectionView.reloadData()
+                StorageManager.shared.deletePhoto(id: photoUrl)
+            }
         
-        self?.favoriteImageView.image = nil
-        self?.deleteImageButton.isHidden = true
-        self?.renameDirectoryButton.isHidden = true
+        let cancelAction = UIAlertAction(
+            title: "Cancel",
+            style: .cancel
+        )
+        
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
     }
     
-    lazy var renameDirectoryButton: UIButton = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.setImage(UIImage(systemName: "highlighter"), for: .normal)
-        $0.tintColor = .systemBlue
-        return $0
-    }(UIButton(type: .custom, primaryAction: renameDirectoryAction))
-    
-    lazy var renameDirectoryAction = UIAction { [weak self] _ in
-        self?.showAlert()
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .dark
-        view.addSubview(favoriteImageView)
-        view.addSubview(deleteImageButton)
-        view.addSubview(renameDirectoryButton)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    func showAlertUpdatePhoto(id: String) {
+        let renameAlert = UIAlertController(
+            title: nil,
+            message: "Enter new header:",
+            preferredStyle: .alert
+        )
         
-        if let imageData = StorageManager.shared.getImage(imgName: "image.jpeg") {
-            favoriteImageView.image = UIImage(data: imageData)
-        }
+        let okAction = UIAlertAction(
+            title: "Ok",
+            style: .default) { [weak self] _ in
+                if let text = renameAlert.textFields?.first?.text {
+                    self?.databaseManager.updatePhoto(id: id, header: text)
+                }
+            }
         
-        NSLayoutConstraint.activate([
-            favoriteImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            favoriteImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            favoriteImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            favoriteImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            favoriteImageView.heightAnchor.constraint(equalToConstant: view.frame.width),
-            
-            deleteImageButton.topAnchor.constraint(equalTo: favoriteImageView.bottomAnchor, constant: 10),
-            deleteImageButton.trailingAnchor.constraint(equalTo: favoriteImageView.trailingAnchor),
-            deleteImageButton.widthAnchor.constraint(equalToConstant: 40),
-            deleteImageButton.heightAnchor.constraint(equalToConstant: 40),
-            
-            renameDirectoryButton.topAnchor.constraint(equalTo: favoriteImageView.bottomAnchor, constant: 10),
-            renameDirectoryButton.leadingAnchor.constraint(equalTo: favoriteImageView.leadingAnchor),
-            renameDirectoryButton.widthAnchor.constraint(equalToConstant: 40),
-            renameDirectoryButton.heightAnchor.constraint(equalToConstant: 40)
-        ])
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
-        if favoriteImageView.image != nil {
-            deleteImageButton.isHidden = false
-            renameDirectoryButton.isHidden = false
-        } else {
-            deleteImageButton.isHidden = true
-            renameDirectoryButton.isHidden = true
-        }
+        renameAlert.addTextField()
+        renameAlert.addAction(okAction)
+        renameAlert.addAction(cancelAction)
+        present(renameAlert, animated: true)
     }
 }
-
-
-*/

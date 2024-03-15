@@ -49,6 +49,15 @@ class StorageManager{
         try? FileManager.default.removeItem(at: path)
     }
     
+    func deletePhoto(id: String) {
+        var id = id
+        id.append(".jpeg")
+        var path = getPath()
+        path.append(path: defaultDirectory ?? "photo")
+        path.append(path: id)
+        try? FileManager.default.removeItem(at: path)
+    }
+    
     func moveFile(path: String) -> Bool {
         do {
             var oldPath = getPath()

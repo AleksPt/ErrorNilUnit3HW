@@ -24,7 +24,7 @@ final class FeedPhotoViewController: UIViewController {
         $0.dataSource = self
         $0.register(FeedCell.self, forCellWithReuseIdentifier: FeedCell.reuseId)
         $0.addSubview(refresh)
-        $0.backgroundColor = .dark
+        $0.backgroundColor = .white
         return $0
     }(UICollectionView(frame: view.frame, collectionViewLayout: UICollectionViewFlowLayout()))
     
