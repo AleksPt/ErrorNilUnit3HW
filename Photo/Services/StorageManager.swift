@@ -81,5 +81,6 @@ class StorageManager{
         try? FileManager.default.moveItem(at: oldPath, to: newPath)
         deleteFolder()
         UserDefaults.standard.setValue(path, forKey: "folder")
+        defaultDirectory = UserDefaults.standard.string(forKey: "folder")
     }
 }
