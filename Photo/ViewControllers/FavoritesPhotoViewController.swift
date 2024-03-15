@@ -31,7 +31,6 @@ final class FavoritesPhotoViewController: UIViewController {
     lazy var deleteAllPhotoButton: UIButton = {
         $0.setTitle("Delete all", for: .normal)
         $0.tintColor = .systemRed
-        $0.tintColor = .red
         return $0
     }(UIButton(type: .system, primaryAction: deleteAllPhotoAction))
     
@@ -50,6 +49,11 @@ final class FavoritesPhotoViewController: UIViewController {
         super.viewWillAppear(animated)
         photoModel = databaseManager.getPhotos()
         collectionView.reloadData()
+        
+        if !photoModel.isEmpty {
+            deleteAllPhotoButton.isEnabled = true
+            deleteAllPhotoButton.tintColor = .systemRed
+        }
     }
 }
 
@@ -119,6 +123,8 @@ extension FavoritesPhotoViewController {
                 self?.databaseManager.deleteAllPhoto()
                 self?.photoModel = []
                 self?.collectionView.reloadData()
+                self?.deleteAllPhotoButton.isEnabled = false
+                self?.deleteAllPhotoButton.tintColor = .systemGray
             }
         
         let cancelAction = UIAlertAction(
