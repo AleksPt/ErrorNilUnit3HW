@@ -14,6 +14,7 @@ class FavoriteCell: UICollectionViewCell {
     
     var completionDelete: (()->())?
     var completionUpdate: (()->())?
+    var completionShared: ((UIActivityViewController)->())?
     
     lazy var customView: UIView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -26,8 +27,23 @@ class FavoriteCell: UICollectionViewCell {
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 10
+        $0.isUserInteractionEnabled = true
         return $0
     }(UIImageView())
+    
+    lazy var sharedButton: UIButton = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.setTitle("Shared", for: .normal)
+        return $0
+    }(UIButton(type: .system, primaryAction: sharedAction))
+    
+    lazy var sharedAction = UIAction { [weak self] _ in
+        let share = UIActivityViewController(
+            activityItems: [self?.favoriteImageView.image as Any],
+            applicationActivities: nil
+        )
+        self?.completionShared?(share)
+    }
     
     lazy var deletePhotoButton: UIButton = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -57,6 +73,7 @@ class FavoriteCell: UICollectionViewCell {
         addSubview(favoriteImageView)
         addSubview(deletePhotoButton)
         addSubview(renamePhotoButton)
+        addSubview(sharedButton)
     }
     
     override func prepareForReuse() {
@@ -95,6 +112,9 @@ class FavoriteCell: UICollectionViewCell {
                 renamePhotoButton.bottomAnchor.constraint(equalTo: bottomAnchor),
                 renamePhotoButton.widthAnchor.constraint(equalToConstant: 30),
                 renamePhotoButton.heightAnchor.constraint(equalToConstant: 30),
+                
+                sharedButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+                sharedButton.centerYAnchor.constraint(equalTo: renamePhotoButton.centerYAnchor),
                 
                 customView.leadingAnchor.constraint(equalTo: favoriteImageView.leadingAnchor, constant: 5),
                 customView.trailingAnchor.constraint(equalTo: favoriteImageView.trailingAnchor, constant:  -5),

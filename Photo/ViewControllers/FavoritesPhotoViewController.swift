@@ -74,8 +74,13 @@ extension FavoritesPhotoViewController: UICollectionViewDataSource {
             self?.showAlertDeleteOnePhoto(idPhoto: photoid, photoUrl: photourl)
             self?.photoModel.remove(at: indexPath.row)
         }
+        
         cell.completionUpdate = { [weak self] in
             self?.showAlertUpdatePhoto(id: photoid)
+        }
+        
+        cell.completionShared = { [weak self] share in
+            self?.present(share, animated: true)
         }
         
         return cell
