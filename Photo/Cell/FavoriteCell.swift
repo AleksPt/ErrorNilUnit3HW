@@ -101,9 +101,10 @@ class FavoriteCell: UICollectionViewCell {
         if let imageData = StorageManager.shared.getImage(imgName: photoId + ".jpeg") {
             favoriteImageView.image = UIImage(data: imageData)
             
-            let photoRatio = (CGFloat((UIImage(data: imageData)?.size.height)!)) / (CGFloat((UIImage(data: imageData)?.size.width)!))
+            let photoRatio = (CGFloat((UIImage(data: imageData)?.size.height)!)) / (CGFloat((UIImage(data: imageData)?.size.width)!)) 
             let viewWidth = UIScreen.main.bounds.width - 40
             let newHeightPicture = viewWidth * photoRatio
+            
             let hAnchor = favoriteImageView.heightAnchor.constraint(equalToConstant: newHeightPicture)
             hAnchor.priority = .defaultHigh
 
@@ -111,17 +112,16 @@ class FavoriteCell: UICollectionViewCell {
                 favoriteImageView.topAnchor.constraint(equalTo: topAnchor),
                 favoriteImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
                 favoriteImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-                favoriteImageView.bottomAnchor.constraint(equalTo: deletePhotoButton.topAnchor, constant: -5),
                 favoriteImageView.widthAnchor.constraint(equalToConstant: viewWidth),
                 hAnchor,
                 
-                deletePhotoButton.trailingAnchor.constraint(equalTo: favoriteImageView.trailingAnchor, constant: -10),
+                deletePhotoButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
                 deletePhotoButton.centerYAnchor.constraint(equalTo: renamePhotoButton.centerYAnchor),
                 deletePhotoButton.widthAnchor.constraint(equalToConstant: 30),
                 deletePhotoButton.heightAnchor.constraint(equalToConstant: 30),
                 
                 renamePhotoButton.topAnchor.constraint(equalTo: favoriteImageView.bottomAnchor),
-                renamePhotoButton.leadingAnchor.constraint(equalTo: favoriteImageView.leadingAnchor, constant: 10),
+                renamePhotoButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
                 renamePhotoButton.bottomAnchor.constraint(equalTo: bottomAnchor),
                 renamePhotoButton.widthAnchor.constraint(equalToConstant: 30),
                 renamePhotoButton.heightAnchor.constraint(equalToConstant: 30),
@@ -129,8 +129,8 @@ class FavoriteCell: UICollectionViewCell {
                 sharedButton.centerXAnchor.constraint(equalTo: centerXAnchor),
                 sharedButton.centerYAnchor.constraint(equalTo: renamePhotoButton.centerYAnchor),
                 
-                customView.leadingAnchor.constraint(equalTo: favoriteImageView.leadingAnchor, constant: 5),
-                customView.trailingAnchor.constraint(equalTo: favoriteImageView.trailingAnchor, constant:  -5),
+                customView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
+                customView.trailingAnchor.constraint(equalTo: trailingAnchor, constant:  -25),
                 customView.bottomAnchor.constraint(equalTo: bottomAnchor),
                 customView.heightAnchor.constraint(equalToConstant: 1)
             ])
