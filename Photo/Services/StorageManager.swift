@@ -6,27 +6,27 @@ class StorageManager{
         
     var defaultDirectory = UserDefaults.standard.string(forKey: "folder")
     
-    func load(url: URL) {
+    func load(url: URL, namePhoto: String) {
         DispatchQueue.global().async { [weak self] in
             if let data = try? Data(contentsOf: url) {
                 DispatchQueue.main.async {
-                    self?.saveImage(data: data)
+                    self?.saveImage(data: data, namePhoto: namePhoto)
                 }
             }
         }
     }
     
-    func getPath() -> URL{
+    func getPath() -> URL {
         return FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask).first!
     }
     
-    func saveImage(data: Data){
+    func saveImage(data: Data, namePhoto: String) {
        var path = getPath()
         path.append(path: defaultDirectory ?? "photo")
         
         try? FileManager.default.createDirectory(at: path, withIntermediateDirectories: true)
         
-        path.append(path: "image.jpeg")
+        path.append(path: namePhoto + ".jpeg")
         
         do {
             try data.write(to: path)
@@ -35,7 +35,7 @@ class StorageManager{
         }
     }
     
-    func getImage(imgName: String) -> Data?{
+    func getImage(imgName: String) -> Data? {
         var path = getPath()
         path.append(path: defaultDirectory ?? "photo")
         path.append(path: imgName)
@@ -49,18 +49,38 @@ class StorageManager{
         try? FileManager.default.removeItem(at: path)
     }
     
-    func moveFile(path: String) -> Bool {
-        do {
-            var oldPath = getPath()
-            oldPath.append(path: defaultDirectory ?? "photo")
-            var newPath = getPath()
-            newPath.append(path: path)
-            try FileManager.default.moveItem(at: oldPath, to: newPath)
-            deleteFolder()
-            UserDefaults.standard.setValue(path, forKey: "folder")
-            return true
-        } catch {
-            return false
-        }
+    func deletePhoto(id: String) {
+        var id = id
+        id.append(".jpeg")
+        var path = getPath()
+        path.append(path: defaultDirectory ?? "photo")
+        path.append(path: id)
+        try? FileManager.default.removeItem(at: path)
+    }
+    
+//    func moveFile(path: String) -> Bool {
+//        do {
+//            var oldPath = getPath()
+//            oldPath.append(path: defaultDirectory ?? "photo")
+//            var newPath = getPath()
+//            newPath.append(path: path)
+//            try FileManager.default.moveItem(at: oldPath, to: newPath)
+//            deleteFolder()
+//            UserDefaults.standard.setValue(path, forKey: "folder")
+//            return true
+//        } catch {
+//            return false
+//        }
+//    }
+    
+    func moveFile(path: String) {
+        var oldPath = getPath()
+        oldPath.append(path: defaultDirectory ?? "photo")
+        var newPath = getPath()
+        newPath.append(path: path)
+        try? FileManager.default.moveItem(at: oldPath, to: newPath)
+        deleteFolder()
+        UserDefaults.standard.setValue(path, forKey: "folder")
+        defaultDirectory = UserDefaults.standard.string(forKey: "folder")
     }
 }

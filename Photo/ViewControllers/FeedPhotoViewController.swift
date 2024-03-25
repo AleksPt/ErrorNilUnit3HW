@@ -22,9 +22,9 @@ final class FeedPhotoViewController: UIViewController {
         layout.minimumInteritemSpacing = 10
         
         $0.dataSource = self
-        $0.register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseId)
+        $0.register(FeedCell.self, forCellWithReuseIdentifier: FeedCell.reuseId)
         $0.addSubview(refresh)
-        $0.backgroundColor = .dark
+        $0.backgroundColor = .white
         return $0
     }(UICollectionView(frame: view.frame, collectionViewLayout: UICollectionViewFlowLayout()))
     
@@ -32,6 +32,7 @@ final class FeedPhotoViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(collectionView)
         getRandomPhotos()
+        
     }
     
     private func getRandomPhotos() {
@@ -56,7 +57,7 @@ extension FeedPhotoViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseId, for: indexPath) as! PhotoCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCell.reuseId, for: indexPath) as! FeedCell
         
         guard let photoItem = photos?[indexPath.item] else { return UICollectionViewCell() }
         

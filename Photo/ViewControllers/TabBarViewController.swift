@@ -12,7 +12,7 @@ final class TabBarViewController: UITabBarController {
         )
         
         let favoritesPhotoVC = configure(
-            viewController: FavoritesPhotoViewController(),
+            viewController: UINavigationController(rootViewController: FavoritesPhotoViewController()),
             title: "Favorites",
             tabBarImage: "star"
         )
