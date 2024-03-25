@@ -8,14 +8,22 @@
 import Foundation
 import RealmSwift
 
-class Folder: Object {
+final class Folder: Object {
     @Persisted(primaryKey: true) var id: String = UUID().uuidString
     @Persisted var name = String()
     @Persisted var notes: List<Note>
 }
 
-class Note: Object {
+final class Note: Object {
     @Persisted(primaryKey: true) var id: String = UUID().uuidString
     @Persisted var header: String? = String()
     @Persisted var photoUrl = String()
+}
+
+struct Photo: Decodable {
+    let urls: PhotoUrl
+}
+
+struct PhotoUrl: Decodable {
+    let regular: URL
 }

@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class DataBaseManager {
+final class DataBaseManager {
     let realm = try! Realm()
     
     var folders = [Folder]()

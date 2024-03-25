@@ -7,7 +7,7 @@
 
 import Foundation
 
-class StorageManager {
+final class StorageManager {
     func getPath() -> URL {
         FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     }

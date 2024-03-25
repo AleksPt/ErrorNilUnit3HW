@@ -7,15 +7,20 @@
 
 import UIKit
 
-class AddNoteViewController: UIViewController {
+final class AddNoteViewController: UIViewController {
     
     var folder: Folder?
     
     private let manager = DataBaseManager()
     private let storageManager = StorageManager()
+    private let networkManager = NetworkManager()
     
     lazy var addNote = UIAction { [unowned self] _ in
         present(picker, animated: true)
+    }
+    
+    lazy var fetchRandomPhoto = UIAction { [unowned self] _ in
+        fetchPhoto()
     }
     
     lazy var picker: UIImagePickerController = {
@@ -34,13 +39,45 @@ class AddNoteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            systemItem: .add,
-            primaryAction: addNote
-        )
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(
+                systemItem: .add,
+                primaryAction: addNote
+            ),
+            UIBarButtonItem(
+                systemItem: .action,
+                primaryAction: fetchRandomPhoto
+            )
+        ]
         title = "Notes"
         view.backgroundColor = .white
         view.addSubview(tableview)
+    }
+    
+    private func fetchPhoto() {
+        networkManager.getRandomPhoto { [unowned self] result in
+            switch result {
+            case .success(let success):
+                if let imageUrl = success?.urls.regular {
+                    
+                    let photoName = UUID().uuidString + ".jpeg"
+                    let note = Note()
+                    note.header = "Image"
+                    note.photoUrl = photoName
+                    manager.createNote(folder: folder!, note: note )
+                    
+                    if let imgData = try? Data(contentsOf: imageUrl) {
+                        storageManager.saveImage(data: imgData, name: photoName)
+                    }
+                }
+                
+                let indexPath = IndexPath(row: manager.folders.count - 1, section: 0)
+                tableview.insertRows(at: [indexPath], with: .automatic)
+                
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        }
     }
 }
 
